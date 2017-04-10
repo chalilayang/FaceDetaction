@@ -8,11 +8,7 @@ OpenCV_CAMERA_MODULES := on
 
 OPENCV_LIB_TYPE :=STATIC
 
-ifeq ("$(wildcard $(OPENCV_MK_PATH))","")
-include ..\..\..\..\native\jni\OpenCV.mk
-else
-include $(OPENCV_MK_PATH)
-endif
+include ../../../../native/jni/OpenCV.mk
 
 LOCAL_MODULE := OpenCV
 LOCAL_C_INCLUDES += $(LOCAL_PATH)
