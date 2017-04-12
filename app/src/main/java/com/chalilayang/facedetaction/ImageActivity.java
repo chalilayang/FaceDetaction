@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
+import com.chalilayang.facedetaction.opencv.OpenCVHelper;
+
 import java.io.FileNotFoundException;
 
 public class ImageActivity extends AppCompatActivity {
@@ -173,20 +175,31 @@ public class ImageActivity extends AppCompatActivity {
                     getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
             int heightRatio = (int)Math.ceil(bmpFactoryOptions.outHeight/(float)height);
             int widthRatio = (int)Math.ceil(bmpFactoryOptions.outWidth/(float)width);
-            if(heightRatio>1&&widthRatio>1) {
+            if(heightRatio > 1 && widthRatio > 1) {
                 if(heightRatio>widthRatio) {
                     bmpFactoryOptions.inSampleSize = heightRatio*2;
-                }
-                else {
+                } else {
                     bmpFactoryOptions.inSampleSize = widthRatio*2;
                 }
             }
             bmpFactoryOptions.inJustDecodeBounds = false;
-            bmp = BitmapFactory.decodeStream(
+            Bitmap tmpbmp = BitmapFactory.decodeStream(
                     getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
+            bmp = editBitmap(tmpbmp);
             imageView.setImageBitmap(bmp);
         } catch(FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private Bitmap editBitmap(Bitmap tmpbitmap) {
+        int w = tmpbitmap.getWidth();
+        int h = tmpbitmap.getHeight();
+        int[] pixels = new int[w*h];
+        tmpbitmap.getPixels(pixels, 0, w, 0, 0, w, h);
+        int[] resultInt = OpenCVHelper.gray(pixels, w, h);
+        Bitmap resultImg = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        resultImg.setPixels(resultInt, 0, w, 0, 0, w, h);
+        return resultImg;
     }
 }
