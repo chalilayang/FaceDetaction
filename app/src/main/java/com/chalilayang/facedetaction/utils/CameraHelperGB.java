@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package jp.co.cyberagent.android.gpuimage.sample.utils;
+package com.chalilayang.facedetaction.utils;
 
-import jp.co.cyberagent.android.gpuimage.sample.utils.CameraHelper.CameraHelperImpl;
-import jp.co.cyberagent.android.gpuimage.sample.utils.CameraHelper.CameraInfo2;
 import android.annotation.TargetApi;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 
 @TargetApi(9)
-public class CameraHelperGB implements CameraHelperImpl {
+public class CameraHelperGB implements CameraHelper.CameraHelperImpl {
 
     @Override
     public int getNumberOfCameras() {
@@ -51,7 +49,7 @@ public class CameraHelperGB implements CameraHelperImpl {
     }
 
     @Override
-    public void getCameraInfo(final int cameraId, final CameraInfo2 cameraInfo) {
+    public void getCameraInfo(final int cameraId, final CameraHelper.CameraInfo2 cameraInfo) {
         CameraInfo info = new CameraInfo();
         Camera.getCameraInfo(cameraId, info);
         cameraInfo.facing = info.facing;

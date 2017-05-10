@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package jp.co.cyberagent.android.gpuimage.sample.utils;
+package com.chalilayang.facedetaction.utils;
 
-import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.GINGERBREAD;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.view.Surface;
+
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.GINGERBREAD;
 
 public class CameraHelper {
     private final CameraHelperImpl mImpl;
